@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">TavernTtrpgGroupFinder</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_settings">Settings</string>
+    <string name="profile_name">Name:</string>
+    <string name="profile_gender">Gender:</string>
+    <string name="profile_age">Age:</string>
+    <string name="person_preferred_game_version">Preferred Game Version:</string>
+    <string name="person_preferred_class_archetype">Preferred Class Archetype:</string>
+    <string name="person_preferred_party_size">Preferred Party Size:</string>
+    <string name="game_description">Description:</string>
+    <string name="game_party_size">Party Size:</string>
+    <string name="game_session_frequency">SessionFrequency:</string>
+    <string name="game_version">Game Version:</string>
+    <string name="settings_user_id">User ID:</string>
+    <string name="log_in">Log In</string>
+</resources>
