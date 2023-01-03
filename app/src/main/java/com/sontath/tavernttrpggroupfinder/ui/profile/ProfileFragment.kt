@@ -9,15 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sontath.tavernttrpggroupfinder.BuisinessLogic.DynamoDatabaseDao
+import com.sontath.tavernttrpggroupfinder.BuisinessLogic.FirebaseUserLogin
+import com.sontath.tavernttrpggroupfinder.BuisinessLogic.IDatabaseDao
+import com.sontath.tavernttrpggroupfinder.BuisinessLogic.IUserLogin
 import com.sontath.tavernttrpggroupfinder.R
 import com.sontath.tavernttrpggroupfinder.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
-    private val _genericProfile: genericProfileUiState? = null
-    private val _gameProfileList: ArrayList<gameProfileUiState> = ArrayList<gameProfileUiState>()
-    private val _playerProfile: playerProfileUiState? = null
+    private lateinit var _genericProfile: genericProfileUiState
+    private var _gameProfileList: ArrayList<gameProfileUiState> = ArrayList<gameProfileUiState>()
+    private lateinit var _playerProfile: playerProfileUiState
+    private lateinit var _databaseDao: IDatabaseDao
+    private lateinit var _userLogin: IUserLogin
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -39,10 +45,20 @@ class ProfileFragment : Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        initializeDatabaseDao()
+        initializeUserLogin()
         loadProfiles()
         initializeProfiles(profileViewModel)
 
         return root
+    }
+
+    fun initializeUserLogin() {
+        _userLogin = FirebaseUserLogin()
+    }
+
+    fun initializeDatabaseDao() {
+         _databaseDao = DynamoDatabaseDao()
     }
 
     override fun onDestroyView() {
@@ -57,15 +73,15 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadGenericProfile() {
-        TODO()
+        _genericProfile = _databaseDao.readGenericProfile(_userLogin.getUid()) // TODO: Determine return value stuff
     }
 
     private fun loadPlayerProfile() {
-        TODO()
+        _playerProfile = _databaseDao.readPlayerProfile(_userLogin.getUid())// TODO: Determine return value stuff
     }
 
     private fun loadGameProfiles() {
-        TODO()
+        _gameProfileList = _databaseDao.readGameProfiles(_userLogin.getUid())// TODO: Determine return value stuff
     }
 
     private fun initializeProfiles(profileViewModel: ProfileViewModel) {
