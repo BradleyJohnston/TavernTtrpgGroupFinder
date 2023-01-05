@@ -20,7 +20,7 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private lateinit var _genericProfile: genericProfileUiState
-    private var _gameProfileList: ArrayList<gameProfileUiState> = ArrayList<gameProfileUiState>()
+    private var _gameProfileList: ArrayList<gameProfileUiState> = ArrayList()
     private lateinit var _playerProfile: playerProfileUiState
     private lateinit var _databaseDao: IDatabaseDao
     private lateinit var _userLogin: IUserLogin
@@ -40,7 +40,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val profileViewModel =
-            ViewModelProvider(this).get(ProfileViewModel::class.java)
+            ViewModelProvider(this)[ProfileViewModel::class.java]
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -53,11 +53,11 @@ class ProfileFragment : Fragment() {
         return root
     }
 
-    fun initializeUserLogin() {
+    private fun initializeUserLogin() {
         _userLogin = FirebaseUserLogin()
     }
 
-    fun initializeDatabaseDao() {
+    private fun initializeDatabaseDao() {
          _databaseDao = DynamoDatabaseDao()
     }
 
@@ -142,6 +142,5 @@ class ProfileFragment : Fragment() {
         gameProfileAdapter = gameProfileAdapter(binding.root.context, _gameProfileList)
         gameProfileRecyclerView.adapter = gameProfileAdapter
         gameProfileRecyclerView.layoutManager = linearLayoutManager
-        gameProfileAdapter.notifyDataSetChanged()
     }
 }
